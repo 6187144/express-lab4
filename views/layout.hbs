@@ -2,12 +2,17 @@
 <html>
 
 <head>
-  <title>{{title}}</title>
+  <title>{{page.data.title}}</title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
   {{> menu menu}}
+  {{#if page.edit}}
+  {{> page_edit page.data}}
+  {{else}}
+  {{> page page.data}}
+  {{/if}}
   {{{body}}}
 </body>
 

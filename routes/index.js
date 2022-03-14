@@ -1,16 +1,31 @@
 const express = require('express');
 const router = express.Router();
 const menuModel = require('../model/menu');
+const pageModel = require('../model/page');
 
+let loadPage = async function (pageKey, req, res, next, edit = false) {
+  if (pageKey != '') {
+    let page = await pageModel.getPage(pageKey);
+    if (page.status) {
+      let menuItems = await menuModel.getItems();
+      menuItems.name = "main";
+      page.edit = edit;
+      res.render('index', { page: page, menu: menuItems });
+      return
+    }
+  }
+  next();
+};
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-  let menuItems = await menuModel.getItems();
-  // if (!menuItems.status) {
-  //   menuItems.data = [];
-  // }
-  menuItems.name = "main";
-  //console.log(menuItems);
-  res.render('index', { title: 'Express', menu: menuItems });
+  loadPage('home', req, res, next);
 });
-
+router.get('/page/:pageKey', async (req, res, next) => {
+  let pageKey = req.params.pageKey.trim().toLowerCase();
+  loadPage(pageKey, req, res, next);
+});
+router.get('/page/:pageKey/edit', async (req, res, next) => {
+  let pageKey = req.params.pageKey.trim().toLowerCase();
+  loadPage(pageKey, req, res, next, true);
+});
 module.exports = router;

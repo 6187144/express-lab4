@@ -15,3 +15,9 @@ a {
   display: block;
   padding: 2px;
 }
+#edit_info {
+  font-size: 0.8rem;
+}
+#edit_info span {
+  font-style: italic;
+}
