@@ -1,6 +1,10 @@
-<input type="text" value="{{title}}" />
-<hr />
-<textarea name="content">{{{content}}}</textarea>
+<form method="post" action="/page/{{pageKey}}">
+    <input type="text" name="title" id="title" value="{{title}}" />
+    <hr />
+    <textarea name="content" id="content" cols="80">{{{content}}}</textarea>
+    <hr />
+    <input type="submit" />
+</form>
 
 <div id="edit_info">
     <span>{{pageKey}}</span> last edited by <span>{{username}}</span> at {{dateModified}}
