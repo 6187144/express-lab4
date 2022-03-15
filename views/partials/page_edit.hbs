@@ -1,11 +1,17 @@
-<form method="post" action="/page/{{pageKey}}">
-    <input type="text" name="title" id="title" value="{{title}}" />
+{{#if login.status}}
+<form method="post" action="/page/{{data.pageKey}}">
+    <input type="hidden" name="function" value="edit" />
+    <input type="text" name="title" id="title" value="{{data.title}}" />
     <hr />
-    <textarea name="content" id="content" cols="80">{{{content}}}</textarea>
+    <textarea name="content" id="content" cols="80">{{{data.content}}}</textarea>
     <hr />
     <input type="submit" />
 </form>
 
 <div id="edit_info">
-    <span>{{pageKey}}</span> last edited by <span>{{username}}</span> at {{dateModified}}
+    <span>{{data.pageKey}}</span> last edited by <span><a href="mailto:{{data.email}}">{{data.username}}</a></span> at
+    {{data.dateModified}}
 </div>
+{{else}}
+<h3>you must be logged in</h3>
+{{/if}}
