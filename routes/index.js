@@ -39,6 +39,7 @@ router.post('/page/:pageKey', async (req, res, next) => {
         }
       }
     }
+
     let menuItems = await menuModel.getItems();
     menuItems.name = "main";
     let page = await pageModel.getPage(pageKey);
